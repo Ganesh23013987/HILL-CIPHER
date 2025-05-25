@@ -1,7 +1,9 @@
-# HILL CIPHER
-HILL CIPHER
-EX. NO: 3 AIM:
- 
+## EX. NO: 3 HILL CIPHER
+
+## Name : GANESH D
+## RegNo: 212223240035
+
+## AIM:
 
 IMPLEMENTATION OF HILL CIPHER
  
@@ -24,12 +26,78 @@ randomly from the set of invertible n × n matrices (modulo 26).
 
 ## ALGORITHM:
 
-STEP-1: Read the plain text and key from the user. STEP-2: Split the plain text into groups of length three. STEP-3: Arrange the keyword in a 3*3 matrix.
+STEP-1: Read the plain text and key from the user.
+
+STEP-2: Split the plain text into groups of length three.
+
+STEP-3: Arrange the keyword in a 3*3 matrix.
+
 STEP-4: Multiply the two matrices to obtain the cipher text of length three.
+
 STEP-5: Combine all these groups to get the complete cipher text.
 
 ## PROGRAM 
 
-## OUTPUT
+```
+#include <stdio.h>
 
-## RESULT
+int key[3][3] = {
+    {6, 24, 1},
+    {13, 16, 10},
+    {20, 17, 15}
+};
+
+int inverseKey[3][3] = {
+    {8, 5, 10},
+    {21, 8, 21},
+    {21, 12, 8}
+};
+
+int main() {
+    char msg[4];  
+    unsigned int enc[3] = {0}, dec[3] = {0};
+
+    printf("Enter plain text (3 letters): ");
+    scanf("%3s", msg);
+    msg[3] = '\0';  
+
+    // Convert to uppercase
+    for (int i = 0; i < 3; i++) {
+        if (msg[i] >= 'a' && msg[i] <= 'z') {
+            msg[i] -= 32;
+        }
+    }
+
+    // Encryption
+    for (int i = 0; i < 3; i++) {
+        enc[i] = 0;
+        for (int j = 0; j < 3; j++) {
+            enc[i] += key[i][j] * (msg[j] - 'A');
+        }
+        enc[i] = enc[i] % 26;
+    }
+
+    printf("Encrypted Cipher Text: %c%c%c\n", enc[0] + 'A', enc[1] + 'A', enc[2] + 'A');
+
+    // Decryption
+    for (int i = 0; i < 3; i++) {
+        dec[i] = 0;
+        for (int j = 0; j < 3; j++) {
+            dec[i] += inverseKey[i][j] * enc[j];
+        }
+        dec[i] = (dec[i] % 26 + 26) % 26;
+    }
+
+    printf("Decrypted Cipher Text: %c%c%c\n", dec[0] + 'A', dec[1] + 'A', dec[2] + 'A');
+
+    return 0;
+}
+
+```
+
+## OUTPUT
+<img width="419" alt="image" src="https://github.com/user-attachments/assets/1bac6a8d-3bb7-4b2f-abda-64076ae98136" />
+
+
+## RESULT:
+The program is executed successfully
